@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import ClientForm, AccountForm, AccountSavingForm, AccountCurrentForm
-from .models import Client, Account
+from .models import Client, Account, Transaction
 from django.contrib.auth.hashers import check_password
 from .helpers import get_common_context, saveClientLogin 
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.core.serializers import serialize
 
 # Create your views here.
 def IndexView(request):
@@ -94,3 +96,20 @@ def AddAccount(request):
         print('no hubo request')
     return render(request, "dashboard.html", {"form": form})
             
+            
+            
+            
+#  Get Data
+def GetTransactions(request):
+    context = get_common_context(request)
+    account_id = context.get('client_id')
+
+    if not account_id:
+        return JsonResponse({'error': 'client_id no proporcionado'}, status=400)
+
+    account = get_object_or_404(Account, id=account_id)
+    
+    transactions = Transaction.objects.filter(account=account)
+    
+    transactions_json = serialize('json', transactions)
+    return JsonResponse(transactions_json, safe=False)

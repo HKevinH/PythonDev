@@ -1,0 +1,31 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h4 class="my-0 font-weight-normal">Movimientos Recientes</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Cantidad</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    <button type="button" class="btn btn-primary" onclick="updateTransaction()">
+      Actualizar
+    </button>
+    <button
+      type="generated"
+      onclick="generatedExtract()"
+      class="btn btn-primary"
+    >
+      Generar Extracto
+    </button>
+  </div>
+</div>
