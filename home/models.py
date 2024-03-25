@@ -23,7 +23,7 @@ class Client(models.Model):
 class Account(models.Model): 
     number_account = models.CharField(max_length=10, verbose_name='Account Number', unique=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Client')
-    balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Balance')
+    balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Balance', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created At')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated At')
     class Meta:

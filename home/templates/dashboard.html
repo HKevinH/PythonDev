@@ -14,16 +14,11 @@
         cuenta NeoBank NeoBank..
       </p>
       <hr />
-      <h4>Tus Cuentas!</h4>
-      {% comment %} {% for account in client.accounts.all %}
-      <div class="account-item">
-        <h5>{{ account.get_account_type_display }}</h5>
-        <p>Account Number: {{ account.number }}</p>
-        <p>Balance: ${{ account.balance }}</p>
-      </div>
-      {% endfor %} {% endcomment %}
     </div>
+
     <div class="col-md-6">
+      {% if not account %}
+
       <h3>Agregar Nueva Cuenta</h3>
       <form method="POST" action="add_account">
         {% csrf_token %}
@@ -52,6 +47,71 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Agregar Cuenta</button>
+      </form>
+      {% else %}
+      <div class="account-item">
+        <h5>Fecha de inicio: {{ account.created_at }}</h5>
+        <p>Numero de cuenta: {{ account.number }}</p>
+        <p>Tu Saldo es: ${{ account.balance }}</p>
+      </div>
+
+      <button href="transfer" class="btn btn-primary" id="transfer">
+        Transferir
+      </button>
+      <button type="button" class="btn btn-primary">Retirar</button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="formDepositHidden()"
+      >
+        Depositar
+      </button>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col">
+    <div id="depositForm" style="display: none">
+      <h3>Depositar Dinero</h3>
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="depositAmount">Cantidad a Depositar</label>
+          <input
+            type="number"
+            class="form-control"
+            id="depositAmount"
+            name="amount"
+            required
+            min="1"
+          />
+        </div>
+        <button type="submit" class="btn btn-success">
+          Confirmar Depósito
+        </button>
+        <button type="submit" class="btn btn-dark">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  <div class="col">
+    <div id="withdrawForm" style="display: none">
+      <h3>Retirar Dinero</h3>
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="withdrawAmount">Cantidad a Retirar</label>
+          <input
+            type="number"
+            class="form-control"
+            id="withdrawAmount"
+            name="amount"
+            required
+            min="1"
+          />
+        </div>
+        <button type="submit" class="btn btn-success">Confirmar Retiro</button>
+        <button type="button" class="btn btn-dark" onclick="hideWithdrawForm()">
+          Cancelar
+        </button>
       </form>
     </div>
   </div>

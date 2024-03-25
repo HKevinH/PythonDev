@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import ClientForm, AccountForm, AccountSavingForm, AccountCurrentForm
-from .models import Client
+from .models import Client, Account
 from django.contrib.auth.hashers import check_password
 from .helpers import get_common_context, saveClientLogin 
 from django.contrib.auth.decorators import login_required
@@ -46,8 +46,9 @@ def Login(request):
         password = request.POST.get('password')
         try:
             client = Client.objects.get(email=email)
+            account = Account.objects.get(client=client)
             if check_password(password, client.password):
-                res = saveClientLogin(request, client)
+                res = saveClientLogin(request, client, account)
                 return res
             else:
                 return HttpResponse('Password is incorrect')

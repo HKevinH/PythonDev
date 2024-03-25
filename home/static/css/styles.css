@@ -71,3 +71,7 @@ a.nav-link:hover {
     box-shadow: 0 0 0 0.2rem rgba(124, 117, 117, 0.25) !important;
     border-color: #7c7575 !important;
 }
+
+#depositForm {
+    animation: forwards fadeIn 1s;
+}

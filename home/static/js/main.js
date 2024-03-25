@@ -1,1 +1,3 @@
-console.log("Hello from main.js");
+function formDepositHidden() {
+  document.getElementById("depositForm").style.display = "block";
+}

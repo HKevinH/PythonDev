@@ -8,8 +8,8 @@ def get_common_context(request):
     return {'logged_in': logged_in , 'client_id' : client_id }
 
 
-def saveClientLogin(request : HttpResponse, client: object ):
-    response = render(request, 'dashboard.html', {'client': client})
+def saveClientLogin(request : HttpResponse, client, account  ):
+    response = render(request, 'dashboard.html', {'client': client, 'account': account})
     request.session['client_id'] = client.id
     request.session['client_name'] = client.name
     response.set_cookie('logged_in', 'True')
