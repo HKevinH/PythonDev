@@ -18,9 +18,6 @@ class Client(models.Model):
         clientFull = [self.name, self.email, self.phone, self.address, self.city, self.state, self.zip_code]
         return clientFull
     
-    
-    
-    
 # Model Abstract For Account
 
 class Account(models.Model): 
@@ -29,7 +26,6 @@ class Account(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Balance')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created At')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated At')
-    
     class Meta:
         abstract =False 
         
@@ -49,7 +45,7 @@ class Account(models.Model):
 #  Class Account Saving
 # Inheritance from Account
 class AccountSaving(Account):
-    interest_rate = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Interest Rate')
+    interest_rate = models.DecimalField(max_digits=5, decimal_places=2, default="0.5", verbose_name='Interest Rate')
     
     def __str__(self):
         return self.number_account
@@ -58,11 +54,10 @@ class AccountSaving(Account):
 # Inheritance from Account
 
 class AccountCurrent(Account):
-    limit = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Limit')
+    limit = models.DecimalField(max_digits=10, decimal_places=2, default="0.5", verbose_name='Limit')
     
     def __str__(self):
         return self.number_account
-    
 #  Model Transaction
 
 class Transaction(models.Model):
