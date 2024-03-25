@@ -37,7 +37,24 @@ a.nav-link:hover {
     }
 }
 
+.col-md-4 {
+    margin-bottom: 10px;
+}
 
 .animated-gif {
     animation: fadeIn 1s;
+}
+
+.card-fixed-height .card-body {
+    height: 150px;
+}
+
+.row.g-4 {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+    .card-fixed-height {
+        margin-bottom: 20px;
+    }
 }
