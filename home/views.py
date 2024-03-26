@@ -31,7 +31,7 @@ def CreateCLient(request):
         form = ClientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return render(request, 'login.html') 
         else:
             print(form.errors)
         return render(request, 'register.html', {'form': form})
@@ -48,7 +48,11 @@ def Login(request):
         password = request.POST.get('password')
         try:
             client = Client.objects.get(email=email)
-            account = Account.objects.get(client=client)
+            try:
+                account = Account.objects.get(client=client)
+            except Account.DoesNotExist:
+                account = None 
+            
             if check_password(password, client.password):
                 res = saveClientLogin(request, client, account)
                 return res

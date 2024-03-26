@@ -1,7 +1,6 @@
 from django.db import models
 
 # Create your models here.
-
 class Client(models.Model):
     name = models.CharField(max_length=100, verbose_name='Full Name', unique=True)
     email = models.EmailField(verbose_name='Email Address')
@@ -15,8 +14,16 @@ class Client(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated At')
 
     def __str__(self):
-        clientFull = [self.name, self.email, self.phone, self.address, self.city, self.state, self.zip_code]
+        clientFull = [self.id, self.name, self.email, self.phone, self.address, self.city, self.state, self.zip_code]
         return clientFull
+    
+    def getId(self):
+        return self.id
+    
+    def get_client_details(self):
+        clientFull = [self.id, self.name, self.email, self.phone, self.address, self.city, self.state, self.zip_code]
+        return clientFull
+    
     
 # Model Abstract For Account
 
@@ -61,7 +68,7 @@ class AccountCurrent(Account):
 #  Model Transaction
 
 class Transaction(models.Model):
-    account = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name='Account')
+    account = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Account')
     value = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Value')
     type = models.CharField(max_length=1, verbose_name='Type')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created At')
