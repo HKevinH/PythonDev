@@ -72,6 +72,16 @@ a.nav-link:hover {
     border-color: #7c7575 !important;
 }
 
-#depositForm {
+#depositForm,
+#transferForm,
+#withdrawForm,
+#extractForm,
+#extractReport {
     animation: forwards fadeIn 1s;
+}
+
+
+
+.fowards {
+    animation: forwards fadeIn 2s;
 }

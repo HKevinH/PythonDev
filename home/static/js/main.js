@@ -1,5 +1,9 @@
-function formDepositHidden() {
-  document.getElementById("depositForm").style.display = "block";
+function formHidden(id, hidden) {
+  if (hidden) {
+    document.getElementById(id).style.display = "none";
+  } else {
+    document.getElementById(id).style.display = "block";
+  }
 }
 
 function fetchData(url) {
@@ -20,8 +24,6 @@ function fetchAndUpdateTransactions(transactions, selector) {
   transactions = JSON.parse(transactions);
   const tbody = document.querySelector(selector);
   tbody.innerHTML = "";
-
-  console.log(transactions);
   transactions.forEach((tr) => {
     const row = `<tr>
                    <td>${tr.fields.created_at}</td>
@@ -32,7 +34,12 @@ function fetchAndUpdateTransactions(transactions, selector) {
   });
 }
 
+function updateTransaction() {
+  document.getElementById("panelDataTrans").classList.add("fowards");
+}
+
 function generatedExtract() {
+  document.getElementById("extractReport").style.display = "block";
   fetchData("/get_transactions")
     .then((data) => fetchAndUpdateTransactions(data, "#reports tbody"))
     .catch((error) =>

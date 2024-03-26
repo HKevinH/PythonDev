@@ -55,14 +55,20 @@
         <p>Tu Saldo es: ${{ account.balance }}</p>
       </div>
 
-      <button href="transfer" class="btn btn-primary" id="transfer">
+      <button class="btn btn-primary" onclick="formHidden('transferForm')">
         Transferir
       </button>
-      <button type="button" class="btn btn-primary">Retirar</button>
       <button
         type="button"
         class="btn btn-primary"
-        onclick="formDepositHidden()"
+        onclick="formHidden('withdrawForm')"
+      >
+        Retirar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="formHidden('depositForm')"
       >
         Depositar
       </button>
@@ -71,7 +77,10 @@
   </div>
   <div class="col">{% include 'form_deposit.html' %}</div>
   <div class="col">{% include 'form_withdraw.html'%}</div>
-  <div class="col">{% include 'tables_transfers.html' %}</div>
-  <div class="col">{% include 'extract.html' %}</div>
+  <div class="col">{% include 'form_transfer.html' %}</div>
+  <div class="col pt-4">{% include 'tables_transfers.html' %}</div>
+  <div class="col" id="extractReport" style="display: none">
+    {% include 'extract.html' %}
+  </div>
 </div>
 {% include 'footer.html' %}

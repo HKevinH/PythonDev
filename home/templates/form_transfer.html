@@ -1,9 +1,9 @@
-<div id="withdrawForm" style="display: none">
-  <h3>Retirar Dinero</h3>
+<div id="transferForm" style="display: none">
+  <h3>Transferir Dinero</h3>
   <form method="POST" action="">
     {% csrf_token %}
     <div class="form-group">
-      <label for="withdrawAmount">Cantidad a Retirar</label>
+      <label for="withdrawAmount">Cantidad a Transferir</label>
       <input
         type="number"
         class="form-control"
@@ -17,7 +17,7 @@
     <button
       type="button"
       class="btn btn-dark"
-      onclick="formHidden('withdrawForm', true)"
+      onclick="formHidden('transferForm', true)"
     >
       Cancelar
     </button>
