@@ -19,6 +19,15 @@ function fetchData(url) {
       throw error;
     });
 }
+function formatDate(dateString) {
+  const options = {
+    day: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  return new Date(dateString).toLocaleDateString("es", options);
+}
 
 function fetchAndUpdateTransactions(transactions, selector) {
   transactions = JSON.parse(transactions);
@@ -26,9 +35,9 @@ function fetchAndUpdateTransactions(transactions, selector) {
   tbody.innerHTML = "";
   transactions.forEach((tr) => {
     const row = `<tr>
-                   <td>${tr.fields.created_at}</td>
+                   <td>${formatDate(tr.fields.created_at)}</td>
                    <td>${tr.fields.type}</td>
-                   <td>$${tr.fields.value}</td>
+                   <td>$${parseFloat(tr.fields.value).toLocaleString("es")}</td>
                  </tr>`;
     tbody.innerHTML += row;
   });
@@ -57,13 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function printExtract() {
   var contentForPrint = document.getElementById("extractPrint").outerHTML;
-
+  const style = `<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">`;
   var windowPrint = window.open("", "_blank", "height=600,width=800");
-  windowPrint.document.write("<html><head><title>Extracto Bancario</title>");
+  windowPrint.document.write("<html><head><title> Extracto Bancario</> ");
 
-  windowPrint.document.write(
-    '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'
-  );
+  windowPrint.document.write(style);
   windowPrint.document.write("</head><body>");
   windowPrint.document.write(contentForPrint);
   windowPrint.document.write("</body></html>");
