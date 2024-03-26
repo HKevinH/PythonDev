@@ -16,17 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin  
 from django.urls import path
-from home.views import IndexView, RegisterView, LoginView, CreateCLient, Login, Logout, ProfileView, AddAccount, GetTransactions
+from home.views import IndexView, RegisterView, LoginView, CreateCLient, Login, Logout, ProfileView, AddAccount, GetTransactions, WithdrawMoney
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView ),
     path('register', RegisterView),
     path('login', LoginView),
+    path('profile', ProfileView, name='profile'),
+    
+    # Get and Update Transactions
+    path('add_account', AddAccount, name='add_account'),
+    path('get_transactions', GetTransactions, name='get_transactions'),
     path('create-client', CreateCLient, name='create_client'),
     path('login_user', Login, name='login_user'),
     path('logout', Logout, name='logout'),
-    path('profile', ProfileView, name='profile'),
-    path('add_account', AddAccount, name='add_account'),
-    path('get_transactions', GetTransactions, name='get_transactions')
+    path('withdrawMoney', WithdrawMoney, name='withdrawMoney'),
 ]

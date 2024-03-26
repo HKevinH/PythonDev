@@ -6,6 +6,17 @@ function formHidden(id, hidden) {
   }
 }
 
+function validAmount(element) {
+  var amountValue = parseFloat(element.value.replace(/,/g, "."));
+
+  if (!isNaN(amountValue)) {
+    element.value = amountValue.toLocaleString("es");
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function fetchData(url) {
   return fetch(url)
     .then((response) => {
@@ -68,7 +79,7 @@ function printExtract() {
   var contentForPrint = document.getElementById("extractPrint").outerHTML;
   const style = `<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">`;
   var windowPrint = window.open("", "_blank", "height=600,width=800");
-  windowPrint.document.write("<html><head><title> Extracto Bancario</> ");
+  windowPrint.document.write("<html><head><title> Extracto Bancario</ > ");
 
   windowPrint.document.write(style);
   windowPrint.document.write("</head><body>");
@@ -81,4 +92,32 @@ function printExtract() {
     windowPrint.print();
     windowPrint.close();
   };
+}
+
+function submitForm(formName, url) {
+  const fomrElement = document.getElementById(formName);
+  const formData = new FormData(fomrElement);
+
+  console.log(formData);
+  fetch(`http://127.0.0.1:8000/${url}`, {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("La solicitud ha fallado: " + response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.status === "success") {
+        alert(data.message);
+        window.location.reload();
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch((error) => {
+      console.error("Error durante la fetch:", error);
+    });
 }

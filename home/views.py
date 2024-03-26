@@ -117,3 +117,13 @@ def GetTransactions(request):
     
     transactions_json = serialize('json', transactions)
     return JsonResponse(transactions_json, safe=False)
+
+def WithdrawMoney(request):
+    if request.method == 'POST':
+        account_id = request.POST.get('account_id')
+        value = request.POST.get('value')
+        account = get_object_or_404(Account, id=account_id)
+        account.withdraw(value)
+        return render(request, 'dashboard.html')
+    else:
+        return HttpResponse('Method not allowed')
