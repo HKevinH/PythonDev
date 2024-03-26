@@ -14,8 +14,7 @@ class Client(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated At')
 
     def __str__(self):
-        clientFull = [self.id, self.name, self.email, self.phone, self.address, self.city, self.state, self.zip_code]
-        return clientFull
+        return f"{self.name} <{self.email}> <{self.phone}> <{self.address}>"
     
     def getId(self):
         return self.id

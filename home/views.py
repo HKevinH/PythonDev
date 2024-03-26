@@ -111,7 +111,7 @@ def GetTransactions(request):
     if not account_id:
         return JsonResponse({'error': 'client_id no proporcionado'}, status=400)
 
-    account = get_object_or_404(Account, id=account_id)
+    account = get_object_or_404(Client, id=account_id)
     
     transactions = Transaction.objects.filter(account=account)
     
